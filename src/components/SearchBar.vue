@@ -5,21 +5,23 @@ import { store } from '../store.js';
         data() {
             return {
                 searchText: '',
+                apiUrl: 'https://api.themoviedb.org/3/search/',
                 apiKey: 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMWVmNTA0ZDMyZjUxMDBhMzM2YTQwOGNlNDNhZTY1YiIsInN1YiI6IjY0OTJjODU5NzA2ZTU2MDBhZDFhMmVmZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5O5CHPkuc11G8l5WEOUiRp32ubkmdocptlVSPLLbliU',
-                accessToken: '01ef504d32f5100a336a408ce43ae65b',
+                accessToken: 'api_key=01ef504d32f5100a336a408ce43ae65b',
                 store,
             }
         },
         methods: {
             getMovies(search){
-                axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${this.accessToken}&query=${search}`)
+                axios.get(`${this.apiUrl}movie?${this.accessToken}&query=${search}`)
                 .then((response)=>{
                     // console.log(response.data.results);
                     this.store.movieRes = response.data.results;
-                    // console.log(this.movieRes[0].original_title);
-                    // console.log(this.movieRes[0].title);
-                    // console.log(this.movieRes[0].original_language);
-                    // console.log(this.movieRes[0].vote_average);
+                })
+                axios.get(`${this.apiUrl}tv?${this.accessToken}&query=${search}`)
+                .then((response)=>{
+                    // console.log(response.data.results);
+                    this.store.seriesRes = response.data.results;
                 })
             },
         },
