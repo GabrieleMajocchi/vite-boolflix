@@ -64,21 +64,19 @@ import { store } from '../store.js';
     <main>
         <h1 v-if="store.movieRes.length > 0">Film trovati</h1>
         <div class="movieInfo" v-for="movie in store.movieRes">
-            <img :src="getPoster(movie.poster_path)" alt="Movie Poster">
+            <img :src="getPoster(movie.poster_path)" alt="Movie Poster" class="poster">
             <p>{{movie.original_title}}</p>
             <p>{{movie.title}}</p>
             <p>{{getFlagEmoji(movie.original_language)}}</p>
-            <p>{{ movie.vote_average }}</p>
-            <img :src="getStars(movie.vote_average)" alt="">
+            <img :src="getStars(movie.vote_average)" :alt="movie.vote_average" class="vote">
         </div>
         <h1 v-if="store.seriesRes.length > 0">Serie trovate</h1>
         <div class="seriesInfo" v-for="series in store.seriesRes">
-            <img :src="getPoster(series.poster_path)" alt="Series Poster">
+            <img :src="getPoster(series.poster_path)" alt="Series Poster" class="poster">
             <p>{{series.original_name}}</p>
             <p>{{series.name}}</p>
             <p>{{getFlagEmoji(series.original_language)}}</p>
-            <p>{{ series.vote_average }}</p>
-            <img :src="getStars(series.vote_average)" alt="">
+            <img :src="getStars(series.vote_average)" :alt="series.vote_average" class="vote">
         </div>
     </main>
 </template>
@@ -87,4 +85,11 @@ import { store } from '../store.js';
     @use '../styles/partials/mixing.scss' as *;
     @use '../styles/partials/variables.scss' as *;
 
+    .poster{
+        width: 200px;
+    }
+    
+    .vote{
+        width: 120px;
+    }
 </style>
