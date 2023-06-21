@@ -4,7 +4,7 @@ import { store } from '../store.js';
         name: 'AppMain',
         data() {
             return {
-                store
+                store,
             }
         },
         methods: {
@@ -26,8 +26,17 @@ import { store } from '../store.js';
                 }
                 const codePoints = countryCode.toUpperCase().split('').map(char =>  127397 + char.charCodeAt());
                 return String.fromCodePoint(...codePoints);
+                },
+            
+            getPoster(link){
+                let posterLink = 'https://image.tmdb.org/t/p/w500/'
+                if(link === null){
+                    posterLink = 'https://www.tgv.com.my/assets/images/404/movie-poster.jpg'
+                }else{
+                    posterLink += link
                 }
-
+                return posterLink
+            }
         },
     }
 </script>
@@ -36,6 +45,7 @@ import { store } from '../store.js';
     <main>
         <h1 v-if="store.movieRes.length > 0">Film trovati</h1>
         <div class="movieInfo" v-for="movie in store.movieRes">
+            <img :src="getPoster(movie.poster_path)" alt="">
             <p>{{movie.original_title}}</p>
             <p>{{movie.title}}</p>
             <p>{{getFlagEmoji(movie.original_language)}}</p>
@@ -43,6 +53,7 @@ import { store } from '../store.js';
         </div>
         <h1 v-if="store.seriesRes.length > 0">Serie trovate</h1>
         <div class="seriesInfo" v-for="series in store.seriesRes">
+            <img :src="getPoster(movie.poster_path)" alt="">
             <p>{{series.original_name}}</p>
             <p>{{series.name}}</p>
             <p>{{getFlagEmoji(series.original_language)}}</p>
