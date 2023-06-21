@@ -26,7 +26,7 @@ import { store } from '../store.js';
                 }
                 const codePoints = countryCode.toUpperCase().split('').map(char =>  127397 + char.charCodeAt());
                 return String.fromCodePoint(...codePoints);
-                },
+            },
             
             getPoster(link){
                 let posterLink = 'https://image.tmdb.org/t/p/w500/'
@@ -36,6 +36,25 @@ import { store } from '../store.js';
                     posterLink += link
                 }
                 return posterLink
+            },
+
+            getStars(vote){
+                let stars = Math.ceil(vote / 2);
+                let url = ''
+                if(stars === 1){
+                    url = '../assets/img/onestar.png'
+                }else if(stars === 2){
+                    url = '../assets/img/twostar.png'
+                }else if(stars === 3){
+                    url = '../assets/img/threestar.png'
+                }else if(stars === 4){
+                    url = '../assets/img/fourstar.png'
+                }else if(stars === 5){
+                    url = '../assets/img/fivestar.png'
+                }else{
+                    url = '../assets/img/zerostar.png'
+                }
+                return url
             }
         },
     }
@@ -45,19 +64,19 @@ import { store } from '../store.js';
     <main>
         <h1 v-if="store.movieRes.length > 0">Film trovati</h1>
         <div class="movieInfo" v-for="movie in store.movieRes">
-            <img :src="getPoster(movie.poster_path)" alt="">
+            <img :src="getPoster(movie.poster_path)" alt="Movie Poster">
             <p>{{movie.original_title}}</p>
             <p>{{movie.title}}</p>
             <p>{{getFlagEmoji(movie.original_language)}}</p>
-            <p>{{movie.vote_average}}</p>
+            <img :src="getStars(movie.vote_average)" alt="">
         </div>
         <h1 v-if="store.seriesRes.length > 0">Serie trovate</h1>
         <div class="seriesInfo" v-for="series in store.seriesRes">
-            <img :src="getPoster(movie.poster_path)" alt="">
+            <img :src="getPoster(series.poster_path)" alt="Series Poster">
             <p>{{series.original_name}}</p>
             <p>{{series.name}}</p>
             <p>{{getFlagEmoji(series.original_language)}}</p>
-            <p>{{series.vote_average}}</p>
+            <img :src="getStars(series.vote_average)" alt="">
         </div>
     </main>
 </template>
