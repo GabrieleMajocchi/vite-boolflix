@@ -54,7 +54,7 @@ import { store } from '../store.js';
                 }else{
                     url = '../assets/img/zerostar.png'
                 }
-                return url
+                return new URL(url, import.meta.url).href
             }
         },
     }
@@ -68,6 +68,7 @@ import { store } from '../store.js';
             <p>{{movie.original_title}}</p>
             <p>{{movie.title}}</p>
             <p>{{getFlagEmoji(movie.original_language)}}</p>
+            <p>{{ movie.vote_average }}</p>
             <img :src="getStars(movie.vote_average)" alt="">
         </div>
         <h1 v-if="store.seriesRes.length > 0">Serie trovate</h1>
@@ -76,6 +77,7 @@ import { store } from '../store.js';
             <p>{{series.original_name}}</p>
             <p>{{series.name}}</p>
             <p>{{getFlagEmoji(series.original_language)}}</p>
+            <p>{{ series.vote_average }}</p>
             <img :src="getStars(series.vote_average)" alt="">
         </div>
     </main>
