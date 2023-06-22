@@ -1,14 +1,12 @@
 <script>
   import AppHeader from './components/AppHeader.vue';
   import AppMain from './components/AppMain.vue';
-  import AppFooter from './components/AppFooter.vue';
   
   export default {
     name: 'AppVue',
     components:{
         AppHeader,
         AppMain,
-        AppFooter
       }
   }
 </script>
@@ -17,7 +15,6 @@
   <div>
     <AppHeader/>
     <AppMain/>
-    <AppFooter/>
   </div>
 </template>
 
@@ -25,4 +22,7 @@
   @import "bootstrap/scss/bootstrap";
   @import './styles/general.scss';
 
+  body{
+        background-color: #434343;
+  }
 </style>
