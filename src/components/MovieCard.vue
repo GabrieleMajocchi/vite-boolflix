@@ -64,22 +64,60 @@
 </script>
 
 <template>
-    <img :src="getPoster(title.poster_path)" alt="Poster" class="poster">
-    <p>{{titleOG}}</p>
-    <p>{{titleTitle}}</p>
-    <p>{{getFlagEmoji(title.original_language)}}</p>
-    <img :src="getStars(title.vote_average)" :alt="title.vote_average" class="vote">
+    <div class="moviecard overflow-auto">
+        <div class="front">
+            <img :src="getPoster(title.poster_path)" alt="Poster" class="poster">
+        </div>
+        <div class="back">
+            <p><span class="fw-bold">Titolo: </span> {{titleTitle}}</p>
+            <p><span class="fw-bold">Titolo originale: </span>{{titleOG}}</p>
+            <p><span class="fw-bold">Lingua originale: </span>{{getFlagEmoji(title.original_language)}}</p>
+            <span class="fw-bold">Voto: <img :src="getStars(title.vote_average)" :alt="title.vote_average" class="vote w-25 align-baseline"></span>
+            <p><span class="fw-bold">Overview: </span>{{title.overview}}</p>
+        </div>
+    </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
     @use '../styles/partials/mixing.scss' as *;
     @use '../styles/partials/variables.scss' as *;
 
+    .moviecard{
+        width: calc(100vw / 5 - 12px);
+        aspect-ratio: 0.67;
+        position: relative;
+        background-color: black;
+        margin-right: 12px;
+        margin-top: 12px;
+        border: 1px solid white;
+        .front{
+            height: 100%;
+            position: absolute;
+            opacity: 1;
+            transition: all 1s ease;
+        }
+        .back{
+            position: absolute;
+            opacity: 0;
+            transition: all 1s ease;
+            color: white;
+        }
+        &:hover .front{
+            opacity: 0;
+        }
+        &:hover .back{
+            opacity: 1;
+        }
+        
+    }
     .poster{
-        width: 200px;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
     }
     
     .vote{
-        width: 120px;
+        width: 100%;
     }
 </style>
