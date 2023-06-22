@@ -31,7 +31,7 @@ import { store } from '../store.js';
 <template>
     <div class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Titolo del film" aria-label="Search" v-model="searchText" @keyup.enter="getMovies(searchText)">
-        <button class="btn btn-outline-success" type="button" @click="getMovies(searchText), searchText=''" >Cerca</button>
+        <button class="btn btn-outline-danger" type="button" @click="getMovies(searchText), searchText=''" >Cerca</button>
     </div>
 </template>
 

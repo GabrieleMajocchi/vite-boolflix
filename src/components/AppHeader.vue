@@ -16,8 +16,8 @@ import SearchBar from './SearchBar.vue';
     <header>
         <nav class="navbar navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="../assets/img/logo.png" alt="Logo" class="d-inline-block align-text-top">
+                <a class="navbar-brand" href="">
+                    <img src="../assets/img/logo.png" alt="Logo" class="d-inline-block align-text-top w-100">
                 </a>
                 <SearchBar/>
             </div>
@@ -28,5 +28,9 @@ import SearchBar from './SearchBar.vue';
 <style lang="scss" scoped>
     @use '../styles/partials/mixing.scss' as *;
     @use '../styles/partials/variables.scss' as *;
+
+    .navbar-brand{
+        width: 250px;
+    }
 
 </style>

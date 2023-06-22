@@ -32,7 +32,7 @@
             },
             
             getPoster(link){
-                let posterLink = 'https://image.tmdb.org/t/p/w500/'
+                let posterLink = 'https://image.tmdb.org/t/p/w500'
                 if(link === null){
                     posterLink = 'https://www.tgv.com.my/assets/images/404/movie-poster.jpg'
                 }else{
@@ -73,7 +73,8 @@
             <p><span class="fw-bold">Titolo originale: </span>{{titleOG}}</p>
             <p><span class="fw-bold">Lingua originale: </span>{{getFlagEmoji(title.original_language)}}</p>
             <span class="fw-bold">Voto: <img :src="getStars(title.vote_average)" :alt="title.vote_average" class="vote w-25 align-baseline"></span>
-            <p><span class="fw-bold">Overview: </span>{{title.overview}}</p>
+            <p v-if="title.overview === ''"><span class="fw-bold">Overview: </span>Non presente</p>
+            <p v-else><span class="fw-bold">Overview: </span>{{title.overview}}</p>
         </div>
     </div>
 </template>
