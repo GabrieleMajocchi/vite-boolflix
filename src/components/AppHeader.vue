@@ -14,7 +14,14 @@ import SearchBar from './SearchBar.vue';
 
 <template>
     <header>
-        <SearchBar/>
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/img/logo.png" alt="Logo" class="d-inline-block align-text-top">
+                </a>
+                <SearchBar/>
+            </div>
+        </nav>
     </header>
 </template>
 

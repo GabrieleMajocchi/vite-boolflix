@@ -29,12 +29,10 @@ import { store } from '../store.js';
 </script>
 
 <template>
-    <nav class="navbar bg-light">
-        <div class="container-fluid">
-                <input class="form-control me-2" type="search" placeholder="Titolo del film" aria-label="Search" v-model="searchText" @keyup.enter="getMovies(searchText)">
-                <button class="btn btn-outline-success" type="send" @click="getMovies(searchText), searchText=''" >Cerca</button>
-        </div>
-    </nav>
+    <div class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Titolo del film" aria-label="Search" v-model="searchText" @keyup.enter="getMovies(searchText)">
+        <button class="btn btn-outline-success" type="button" @click="getMovies(searchText), searchText=''" >Cerca</button>
+    </div>
 </template>
 
 <style lang="scss" scoped>
