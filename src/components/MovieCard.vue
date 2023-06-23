@@ -64,11 +64,13 @@
 </script>
 
 <template>
-    <div class="moviecard overflow-auto">
+    <div class="moviecard">
         <div class="front">
             <img :src="getPoster(title.poster_path)" alt="Poster" class="poster">
         </div>
         <div class="back">
+            <img :src="getPoster(title.backdrop_path)" alt="Backdrop Poster" class="backdropPoster">
+            <div class="shader"></div>
             <p><span class="fw-bold">Titolo: </span> {{titleTitle}}</p>
             <p><span class="fw-bold">Titolo originale: </span>{{titleOG}}</p>
             <p><span class="fw-bold">Lingua originale: </span>{{getFlagEmoji(title.original_language)}}</p>
@@ -84,41 +86,105 @@
     @use '../styles/partials/variables.scss' as *;
 
     .moviecard{
-        width: calc(100vw / 5 - 12px);
-        aspect-ratio: 0.67;
+        border-radius: 10px;
+        transition: all 0.5s;
+        transform: scale(1);
+        font-family: sans-serif;
         position: relative;
-        background-color: black;
-        margin-right: 12px;
-        margin-top: 12px;
-        border: 1px solid white;
+        background: #181818;
+        margin: 2rem 1rem;
+        width: calc(100vw / 6);
+        height: calc(80vh - 300px);
         .front{
-            height: 100%;
-            position: absolute;
+            border-radius: 10px;
             opacity: 1;
-            transition: all 1s ease;
-        }
-        .back{
-            position: absolute;
-            opacity: 0;
-            transition: all 1s ease;
-            color: white;
+            transition: all 0.5s ease;
         }
         &:hover .front{
-            opacity: 0;
+        opacity: 0;
         }
-        &:hover .back{
-            opacity: 1;
+        &:hover{
+        transform: scale(1.1);
+        box-shadow: 0 0 10px black;
+        }
+        img{
+            border-radius: 10px;
+        width: calc(100vw / 6);
+        height: calc(80vh - 300px);
+        }
+        .back{
+            padding: 10px;
+            border-radius: 10px;
+            transition: all 0.5s ease;
+            top: 0;
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            color: white;
+            overflow: auto;
+            &:hover{
+                opacity: 1;
+            }
+            .vote{
+                height: 20px;
+            }
+            .backdropPoster{
+            margin-left: -10px;
+            margin-top: -10px;
+            margin-bottom: 1rem;
+            border-radius: 10px 10px 0 0;
+            width: calc(100vw / 6);
+            height: calc((80vh - 300px)/5*2);
+            }
+            .shader{
+                background: rgb(24,24,24);
+                background: linear-gradient(0deg, rgba(24,24,24,1) 5%, rgba(0,0,0,0) 100%);
+                height: 70px;
+                width: calc(100vw / 6);
+                margin-left: -10px;
+                position: absolute;
+                margin-top: -85px;
+            }
         }
         
     }
-    .poster{
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        object-position: center;
-    }
+    // .moviecard{
+    //     width: calc(100vw / 5 - 12px);
+    //     aspect-ratio: 0.67;
+    //     position: relative;
+    //     background-color: black;
+    //     margin-right: 12px;
+    //     margin-top: 12px;
+    //     border: 1px solid white;
+    //     .front{
+    //         height: 100%;
+    //         position: absolute;
+    //         opacity: 1;
+    //         transition: all 1s ease;
+    //     }
+    //     .back{
+    //         position: absolute;
+    //         opacity: 0;
+    //         transition: all 1s ease;
+    //         color: white;
+    //     }
+    //     &:hover .front{
+    //         opacity: 0;
+    //     }
+    //     &:hover .back{
+    //         opacity: 1;
+    //     }
+        
+    // }
+    // .poster{
+    //     height: 100%;
+    //     width: 100%;
+    //     object-fit: cover;
+    //     object-position: center;
+    // }
     
-    .vote{
-        width: 100%;
-    }
+    // .vote{
+    //     width: 100%;
+    // }
 </style>

@@ -23,6 +23,6 @@
   @import './styles/general.scss';
 
   body{
-        background-color: #434343;
+        background-color: #141414;
   }
 </style>
