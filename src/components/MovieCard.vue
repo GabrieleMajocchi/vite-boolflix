@@ -1,13 +1,20 @@
 <script>
+import axios from 'axios'
+import { store } from '../store'
+
     export default {
         name: 'AppMain',
         props: {
             title: Object,
             titleOG: String,
             titleTitle: String,
+            titleType: String,
         },
         data() {
             return {
+                store,
+                totalGen: '',
+                links: [],
             }
         },
         methods: {
@@ -58,6 +65,47 @@
                     url = '../assets/img/zerostar.png'
                 }
                 return new URL(url, import.meta.url).href
+            },
+
+            transformGenres(genres){
+                if(genres.length === 0){
+                    this.totalGen = 'No genres'
+                    return this.totalGen
+                }else{
+                    genres.forEach(element => {
+                        if(this.titleType === 'movie'){
+                            for (let i = 0; i < this.store.movieGen.length; i++) {
+                                if (this.store.movieGen[i].id === element) {
+                                this.totalGen += this.store.movieGen[i].name;
+                                console.log(this.totalGen)
+                                }
+                            }
+                        }else{
+                            for (let i = 0; i < this.store.seriesTv.length; i++) {
+                                if (this.store.seriesTv[i].id === element) {
+                                this.totalGen += this.store.seriesTv[i].name;
+                                console.log(this.totalGen)
+                                }
+                            }
+                        }
+                        return this.totalGen
+                    });
+                }
+            },
+
+            showTrailer(id){
+                axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?language=it-IT&api_key=01ef504d32f5100a336a408ce43ae65b`)
+                .then((response)=>{
+                    // console.log(response.data.results)
+                    this.links = response.data.results
+                    for (let i = (this.links.length-1); i > 0; i--) {
+                            if (this.links[i].type === 'Trailer'){
+                            this.store.trailerUrl = "https://www.youtube.com/embed/"+this.links[i].key+"?autoplay=1"
+                            console.log(this.store.trailerUrl)
+                            i=0
+                            }
+                        }
+                })
             }
         },
     }
@@ -70,13 +118,15 @@
         </div>
         <div class="back">
             <img :src="getPoster(title.backdrop_path)" alt="Backdrop Poster" class="backdropPoster">
+            <div class="playbutton" @click="showTrailer(title.id)"><i class="fa-solid fa-play" style="color: #ffffff;"></i></div>
             <div class="shader"></div>
-            <p><span class="fw-bold">Titolo: </span> {{titleTitle}}</p>
-            <p><span class="fw-bold">Titolo originale: </span>{{titleOG}}</p>
-            <p><span class="fw-bold">Lingua originale: </span>{{getFlagEmoji(title.original_language)}}</p>
-            <span class="fw-bold">Voto: <img :src="getStars(title.vote_average)" :alt="title.vote_average" class="vote w-25 align-baseline"></span>
-            <p v-if="title.overview === ''"><span class="fw-bold">Overview: </span>Non presente</p>
-            <p v-else><span class="fw-bold">Overview: </span>{{title.overview}}</p>
+            <p class="fw-bold m-0">About {{titleTitle}}</p>
+            <!-- <p><span class="fw-bold">Titolo originale: </span>{{titleOG}}</p> -->
+            <p v-if="title.overview === ''">No description</p>
+            <p v-else>{{title.overview}}</p>
+            <!-- <span>Genres: {{transformGenres(title.genre_ids)}}</span><br> -->
+            <span class="me-3">Lang: {{getFlagEmoji(title.original_language)}}</span>
+            <span>Rating: <img :src="getStars(title.vote_average)" :alt="title.vote_average" class="vote w-25 align-baseline"></span>
         </div>
     </div>
 </template>
@@ -107,10 +157,10 @@
         transform: scale(1.1);
         box-shadow: 0 0 10px black;
         }
-        img{
+        .poster{
             border-radius: 10px;
-        width: calc(100vw / 6);
-        height: calc(80vh - 300px);
+            width: calc(100vw / 6);
+            height: calc(80vh - 300px);
         }
         .back{
             padding: 10px;
@@ -130,12 +180,25 @@
                 height: 20px;
             }
             .backdropPoster{
-            margin-left: -10px;
-            margin-top: -10px;
-            margin-bottom: 1rem;
-            border-radius: 10px 10px 0 0;
-            width: calc(100vw / 6);
-            height: calc((80vh - 300px)/5*2);
+                margin-left: -10px;
+                margin-top: -10px;
+                margin-bottom: 1rem;
+                border-radius: 10px 10px 0 0;
+                width: calc(100vw / 6);
+                height: calc((80vh - 300px)/5*2);
+            }
+            .playbutton{
+                border: 2px solid white;
+                border-radius: 50%;
+                width: 40px;
+                aspect-ratio: 1;
+                cursor: pointer;
+                z-index: 1;
+                position: absolute;
+                margin-top: -65px;
+                text-align: center;
+                padding-top: 6px;
+                padding-left: 3px;
             }
             .shader{
                 background: rgb(24,24,24);
@@ -145,6 +208,9 @@
                 margin-left: -10px;
                 position: absolute;
                 margin-top: -85px;
+            }
+            span{
+                color: #777;
             }
         }
         
