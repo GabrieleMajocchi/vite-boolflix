@@ -77,14 +77,14 @@ import { store } from '../store'
                             for (let i = 0; i < this.store.movieGen.length; i++) {
                                 if (this.store.movieGen[i].id === element) {
                                 this.totalGen += this.store.movieGen[i].name;
-                                console.log(this.totalGen)
+                                // console.log(this.totalGen)
                                 }
                             }
                         }else{
                             for (let i = 0; i < this.store.seriesTv.length; i++) {
                                 if (this.store.seriesTv[i].id === element) {
                                 this.totalGen += this.store.seriesTv[i].name;
-                                console.log(this.totalGen)
+                                // console.log(this.totalGen)
                                 }
                             }
                         }
@@ -101,7 +101,7 @@ import { store } from '../store'
                     for (let i = (this.links.length-1); i > 0; i--) {
                             if (this.links[i].type === 'Trailer'){
                             this.store.trailerUrl = "https://www.youtube.com/embed/"+this.links[i].key+"?autoplay=1"
-                            console.log(this.store.trailerUrl)
+                            // console.log(this.store.trailerUrl)
                             i=0
                             }
                         }
